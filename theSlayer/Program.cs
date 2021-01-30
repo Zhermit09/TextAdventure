@@ -10,12 +10,15 @@ namespace theSlayer
     {
         private Inventory inventory = new Inventory();
         private Player player = new Player();
-        private Room[,] rooms = new Room[,]
-    {
-                    {new Room("Dark room", RoomType.DARK),new Room("Flint room", RoomType.FLINT),new Room("Dark room", RoomType.DARK)},
-                    {new Room("Oil room", RoomType.OIL), new Room("Fountain", RoomType.FOUNTAIN),new Room("Stick room", RoomType.STICK)},
-                    {new Room("Dark room", RoomType.DARK),new Room("Emty room", RoomType.EMPTY),new Room("Dark room", RoomType.DARK)}
-    };
+
+        private Room darkRoom = new Room("Dark room", RoomType.DARK);
+        private Room flintRoom = new Room("Flint room", RoomType.FLINT);
+        private Room oilRoom = new Room("Oil room", RoomType.OIL);
+        private Room fountain = new Room("Fountain", RoomType.FOUNTAIN);
+        private Room stickRoom = new Room("Stick room", RoomType.STICK);
+        private Room emptyRoom = new Room("Emty room", RoomType.EMPTY);
+
+        private Map map = new Map();
         static void Main(string[] args)
         {
             Program program = new Program();
@@ -146,24 +149,28 @@ namespace theSlayer
                 case "f":
                 case "forwrads":
                     player.setY(player.move(player.y(), -1));
+                    Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "2":
                 case "l":
                 case "left":
                     player.setX(player.move(player.x(), -1));
+                    Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "3":
                 case "r":
                 case "right":
                     player.setX(player.move(player.x(), 1));
+                    Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "4":
                 case "b":
                 case "backwards":
                     player.setY(player.move(player.y(), 1));
+                    Console.WriteLine(getRoom().getDesc());
                     break;
 
                 default:
@@ -245,7 +252,38 @@ namespace theSlayer
         //Smoll Methods
         public Room getRoom()
         {
-            Room room = rooms[player.y(), player.x()];
+            Room room = null;
+            switch (map.getSymbol(player.y(), player.x()))
+            {
+                case "#":
+                    room = darkRoom;
+                    break;
+
+                case "¤":
+                    room = flintRoom;
+                    break;
+
+                case "&":
+                    room = oilRoom;
+                    break;
+
+                case "§":
+                    room = fountain;
+                    break;
+
+                case "/":
+                    room = stickRoom;
+                    break;
+
+                case "-":
+                    room = emptyRoom;
+                    break;
+
+                default:
+                    Console.WriteLine("Can't identify the room");
+                    Console.ReadLine();
+                    break;
+            }
             return room;
         }
         public void unknownCommand()
