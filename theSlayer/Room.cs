@@ -8,18 +8,14 @@ namespace theSlayer
 {
     class Room
     {
-        private string id;
         private RoomType type;
         private string description;
 
-        public Room(string id, string description, RoomType type)
+        public Room(string description, RoomType type)
         {
-            this.id = id;
             this.description = description;
             this.type = type;
         }
-        public string getID()
-        { return id; }
 
         public string getDesc()
         { return description; }

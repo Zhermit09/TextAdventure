@@ -12,9 +12,9 @@ namespace theSlayer
         private Player player = new Player();
         private Room[,] rooms = new Room[,]
     {
-                    {new Room("NW", "Dark room", RoomType.DARK),new Room("N", "Flint room", RoomType.FLINT),new Room("NE", "Dark room", RoomType.DARK)},
-                    {new Room("W", "Oil room", RoomType.OIL), new Room("C", "Fountain", RoomType.FOUNTAIN),new Room("E", "Stick room", RoomType.STICK) },
-                    {new Room("SW", "Dark room", RoomType.DARK),new Room("S", "Emty room", RoomType.EMPTY),new Room("SE", "Dark room", RoomType.DARK)}
+                    {new Room("Dark room", RoomType.DARK),new Room("Flint room", RoomType.FLINT),new Room("Dark room", RoomType.DARK)},
+                    {new Room("Oil room", RoomType.OIL), new Room("Fountain", RoomType.FOUNTAIN),new Room("Stick room", RoomType.STICK)},
+                    {new Room("Dark room", RoomType.DARK),new Room("Emty room", RoomType.EMPTY),new Room("Dark room", RoomType.DARK)}
     };
         static void Main(string[] args)
         {
