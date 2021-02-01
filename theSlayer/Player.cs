@@ -8,8 +8,8 @@ namespace theSlayer
 {
     class Player
     {
-        private int currentPossionX = 1;
-        private int currentPossionY = 2;
+        private int currentPossionX = 3;
+        private int currentPossionY = 6;
 
         public int x()
         { return currentPossionX; }
@@ -23,17 +23,18 @@ namespace theSlayer
         public void setY(int y)
         { this.currentPossionY = y; }
 
-        public int move(int cord, int move)
+        public int move(int cord, int move, int map, string symbol)
         {
             cord += move;
-
-            if (cord > 2 || cord < 0)
+            Console.WriteLine(symbol);
+            if (cord > map || cord < 0 || symbol == "@")
             {
-                cord -= move;
-                Console.WriteLine(
-                    "That is a wall" +
-                    "\nPress 'Enter' to continue");
-                Console.ReadLine();
+                    cord -= move;
+                    Console.WriteLine(
+                        "That is a wall" +
+                        "\nPress 'Enter' to continue");
+                    Console.ReadLine();
+                
             }
             return cord;
         }

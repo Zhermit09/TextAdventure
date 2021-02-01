@@ -17,6 +17,7 @@ namespace theSlayer
         private Room fountain = new Room("Fountain", RoomType.FOUNTAIN);
         private Room stickRoom = new Room("Stick room", RoomType.STICK);
         private Room emptyRoom = new Room("Emty room", RoomType.EMPTY);
+        private Room wall = new Room("It's a wall", RoomType.WALL);
 
         private Map map = new Map();
         static void Main(string[] args)
@@ -36,6 +37,7 @@ namespace theSlayer
             Console.WriteLine(
                 "The Slayer" +
                 "\nPress 'Enter' to begin");
+        
             Console.ReadLine();
             Console.Clear();
 
@@ -53,7 +55,7 @@ namespace theSlayer
                 "\nYour choice: ");
             string choice = Console.ReadLine().ToLower();
             Console.Clear();
-
+            
             switch (choice)
             {
                 case "1":
@@ -79,6 +81,9 @@ namespace theSlayer
                 case "m":
                 case "move":
                     walkWhere();
+                    break;
+                case "/map":
+                    cheat();
                     break;
 
                 default:
@@ -148,28 +153,28 @@ namespace theSlayer
                 case "1":
                 case "f":
                 case "forwrads":
-                    player.setY(player.move(player.y(), -1));
+                    player.setY(player.move(player.y(), -1, map.getMapY()-1, map.getSymbol(player.y()-1, player.x())));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "2":
                 case "l":
                 case "left":
-                    player.setX(player.move(player.x(), -1));
+                    player.setX(player.move(player.x(), -1, map.getMapX()-1, map.getSymbol(player.y(), player.x() - 1)));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "3":
                 case "r":
                 case "right":
-                    player.setX(player.move(player.x(), 1));
+                    player.setX(player.move(player.x(), 1, map.getMapX()-1, map.getSymbol(player.y(), player.x() + 1)));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "4":
                 case "b":
                 case "backwards":
-                    player.setY(player.move(player.y(), 1));
+                    player.setY(player.move(player.y(), 1, map.getMapY()-1, map.getSymbol(player.y()+1, player.x())));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
@@ -278,6 +283,9 @@ namespace theSlayer
                 case "-":
                     room = emptyRoom;
                     break;
+                case "@":
+                    room = wall;
+                    break;
 
                 default:
                     Console.WriteLine("Can't identify the room");
@@ -286,6 +294,26 @@ namespace theSlayer
             }
             return room;
         }
+
+        //rename and reposition
+        public void cheat()
+        {
+            Console.WriteLine("Cheating are we~?");
+            for (int y = 0; y < map.getMapY(); y++)
+            {
+                for (int x = 0; x < map.getMapX(); x++)
+                {
+                    if (map.getSymbol(y, x) != "@")
+                    {
+                        map.cheatMap(x, y, player.x(),player.y());
+
+                    }
+                }
+            }
+            Console.WriteLine("\n");
+            Console.ReadLine();
+        }
+     
         public void unknownCommand()
         {
             Console.WriteLine("Unknown command" +
