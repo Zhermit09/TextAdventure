@@ -30,31 +30,62 @@ namespace theSlayer
         private void start()
         {
             Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition((Console.BufferWidth - 22) / 2, 13);
+            Console.WriteLine("Press 'Enter' to start");
+            Console.ReadLine();
+            Console.Clear();
             mainMeny();
         }
 
         public void mainMeny()
         {
-            string[] title = new string[] {
-                " MMMMMMMMM   MM       MM   MMMMMMMMM        MMMMMMMMMM  MM          MMMMMMMM   MMM     MMM   MMMMMMMMM  MMMMMMMMMM ",
-                "MMMMMMMMMMM  MMM     MMM  MMMMMMMMM        MMMMMMMMMM   MMM        MMMMMMMMMM   MMM   MMN   MMMMMMMMM   MMMMMMMMMMM",
-                "V   MMM   V  MMM     MMM  MMM              MMM          MMM        MMM    MMM    MMM MMM    MMM         MMM     MMM",
-                "    MMM      MMM     MMM  MMM              MMM          MMM        MMM    MMM     MMMMM     MMM         MMM     MMM",
-                "    MMM      MMMMMMMMMMM  MMMMMMMMM        MMMMMMMMMM   MMM        MMMMMMMMMM      MMM      MMMMMMMMM   MMMMMMMMMMM",
-                "    MMM      MMMMMMMMMMM  MMMMMMMMM         MMMMMMMMMM  MMM        MMMMMMMMMM      MMM      MMMMMMMMM   MMMMMMMNMM ",
-                "    MMM      MMMM   MMMM  MMM                      MMMM MMM        MMM    MMM      MMM      MMM         MMM  MMM   ",
-                "    MMM      MMM     MMM  MMM                      MMMM MMM        MMM    MMM      MMM      MMM         MMM   MMM  ",
-                "    MMM      MMM     MMM  MMMMMMMMM        MMMMMMMMMMM  MMMMMMMMM  MMM    MMM      MMM      MMMMMMMMM   MMM    MMN ",
-                "     M       MM       MM   MMMMMMMMM        MMMMMMMMM   MMMMMMMMMM  MM    MM        M        MMMMMMMMM  MMM     MMM"
-        };
 
+            type("In the former age... when ancient behemoths still roamed the surface off the earth... before the time HEAVENS and HELL " +
+                "got separated from our place of dwelling. In an era of LEGENDARY BEASTS’ warfare for the supreme as an existence, " +
+                "whose battles were shacking the land beneath our feet!... Shattering the mountains turning them to dust. " +
+                "Wherever those leviathans appeared, wastelands were erupting!... Leaving the ground without a single drop of " +
+                "nourishment, unsuitable... for any... type of life to exist. Yet, the wicked thrived in those environments, " +
+                "clashing with each other, feeding on themselves and thus grew stronger. Whilst...the feeble humans were not " +
+                "even worth mentioning, they were insufficient... needy... and weak... . " +
+                "They never had a chance against those at the apex of the world.\n\n" +
+
+                "Until thee was born... a human yet, feared by the ugly beasts. Alone butchering untold amounts of its foes. " +
+                "The folk acknowledged the strength of the champion and started worshipping thee, " +
+                "naming their warrior 'The Slayer'!!! Hoping that the fighter will be their everlasting guardian. And yet... " +
+                "their 'hero' had no concern for the people's safety, thou charged into battle with ever scorching rage, " +
+                "again and again... growing stronger with each foe thee slew.\n\n" +
+
+                "Thou was not immortal and had fallen in battle countless times, nonetheless, " +
+                "slayer's soul never left our world. Angels and demons both fearing the slayer, " +
+                "both not allowing the unrestrained soul to enter their realm... in horror...imagining the aftermath of " +
+                "letting thou into their domain... . The slayer was cursed by the gods yet not wanted by the devil, "+
+                "making him the ideal war machine... . The abominations at a loss... anxious..." +
+                "fearing that they all will be devoured by the slayer, they banded together and by sacrificing their own " +
+                "Sealed the slayer in the depths of the earth.\n" +
+                "And there he remained...Or so they say... .\n");
+
+            Console.Clear();
+
+            string[] title = new string[] {
+                "WMMMMMMMMMW   MA     AM    AMMMMMMMV        AMMMMMMMMV  ML          AMMMMMMA  WMMM     MMMW  AMMMMMMMV  AMMMMMMMA ",
+                "Y  TMMMT  Y  MV       VM  AMMMMMMMV        MMMMMMMMMV   MML        AMMMMMMMMA  VMMM   MMNV  AMMMMMMMV   MMMMMMMMMA ",
+                "    MMM      MA       AM  MMMV             MMV          MMM        MMMV  VMMM   VMMM MMMV   MMV         MMM    MMM ",
+                "    MMM      MMA     AMM  MMMA             MMA          MMM        MMMA  AMMM    VMMMMMV    MMA         MMM    MMM ",
+                "    MMM      MMMMMMMMMMM  MMMMMMMA         MMMMMMMMMA   MMM        MMMMMMMMMM     VMMMV     MMMMMMMA    MMMMMMMMMV ",
+                "    MMM      MMMMMMMMMMM  MMMMMMMV          VMMMMMMMMA  MMM        MMMMMMMMMM      MMM      MMMMMMMV    MMMMMMMNV  ",
+                "    MMM      MMV     VMM  MMMV                     VMMA MMM        MMMV  VMMM      MMM      MMA         MMMY VMA   ",
+                "    MMM      MV       VM  MMMA             A       AMMV MMML       MMM    MMM      MMM      MMV         MMM   VMA  ",
+                "    MMM      MA       AM  VMMMMMMMA        VMMMMMMMMMV  MMMMMMMMA  VMM    MMV      MMM      VMMMMMMMA   MMM    VMA ",
+                "  AWMMMWA     MV     VM    VMMMMMMMA        VMMMMMMMV   UMMMMMMMMA  VW    WV     AWMMMWA     VMMMMMMMA  UWU     VMA"
+        };
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             if (Console.BufferWidth < 120)
             {
                 Console.BufferWidth = 120;
             }
             for (int i = 0; i < 10; i++)
             {
-                Console.SetCursorPosition((Console.BufferWidth - 116) / 2, i + 1);
+                Console.SetCursorPosition((Console.BufferWidth - 116) / 2, i + 4);
                 Console.Write(title[i]);
             }
             Console.WriteLine("\n\n\n\n\n");
@@ -62,7 +93,7 @@ namespace theSlayer
             flicker((Console.BufferWidth - 26) / 2);
             Console.Clear();
 
-            Console.WriteLine("INSERT STROY HERE");
+
             choiceList();
         }
 
@@ -175,7 +206,7 @@ namespace theSlayer
                 case "f":
                 case "forwrads":
                     player.setY(player.move(player.y(), -1, map.getMapY() - 1, map.getSymbol(player.y() - 1, player.x())));
-                    type(getRoom().getDesc()+"\n");
+                    type(getRoom().getDesc() + "\n");
                     break;
 
                 case "2":
@@ -357,7 +388,6 @@ namespace theSlayer
                 Console.Write(text[i]);
             }
             Console.Clear();
-            Console.WriteLine("Press 'Space' to skip\n");
             Console.WriteLine(text);
             flicker(0);
         }
@@ -382,7 +412,8 @@ namespace theSlayer
                         Console.ForegroundColor = ConsoleColor.White;
                         color = 0;
                     }
-                    Console.Write("Press 'Enter' to continue                   ");
+                    Console.Write("Press 'Enter' to continue                   " +
+                        "                                                      ");
                     Console.SetCursorPosition(x, top);
                     Thread.Sleep(800);
                 }
