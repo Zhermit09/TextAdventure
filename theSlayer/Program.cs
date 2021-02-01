@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace theSlayer
@@ -34,11 +35,31 @@ namespace theSlayer
 
         public void mainMeny()
         {
-            Console.WriteLine(
-                "The Slayer" +
-                "\nPress 'Enter' to begin");
-        
-            Console.ReadLine();
+            string[] title = new string[] {
+                " MMMMMMMMM   MM       MM   MMMMMMMMM        MMMMMMMMMM  MM          MMMMMMMM   MMM     MMM   MMMMMMMMM  MMMMMMMMMM ",
+                "MMMMMMMMMMM  MMM     MMM  MMMMMMMMM        MMMMMMMMMM   MMM        MMMMMMMMMM   MMM   MMN   MMMMMMMMM   MMMMMMMMMMM",
+                "V   MMM   V  MMM     MMM  MMM              MMM          MMM        MMM    MMM    MMM MMM    MMM         MMM     MMM",
+                "    MMM      MMM     MMM  MMM              MMM          MMM        MMM    MMM     MMMMM     MMM         MMM     MMM",
+                "    MMM      MMMMMMMMMMM  MMMMMMMMM        MMMMMMMMMM   MMM        MMMMMMMMMM      MMM      MMMMMMMMM   MMMMMMMMMMM",
+                "    MMM      MMMMMMMMMMM  MMMMMMMMM         MMMMMMMMMM  MMM        MMMMMMMMMM      MMM      MMMMMMMMM   MMMMMMMNMM ",
+                "    MMM      MMMM   MMMM  MMM                      MMMM MMM        MMM    MMM      MMM      MMM         MMM  MMM   ",
+                "    MMM      MMM     MMM  MMM                      MMMM MMM        MMM    MMM      MMM      MMM         MMM   MMM  ",
+                "    MMM      MMM     MMM  MMMMMMMMM        MMMMMMMMMMM  MMMMMMMMM  MMM    MMM      MMM      MMMMMMMMM   MMM    MMN ",
+                "     M       MM       MM   MMMMMMMMM        MMMMMMMMM   MMMMMMMMMM  MM    MM        M        MMMMMMMMM  MMM     MMM"
+        };
+
+            if (Console.BufferWidth < 120)
+            {
+                Console.BufferWidth = 120;
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                Console.SetCursorPosition((Console.BufferWidth - 116) / 2, i + 1);
+                Console.Write(title[i]);
+            }
+            Console.WriteLine("\n\n\n\n\n");
+            Console.SetCursorPosition((Console.BufferWidth - 26) / 2, Console.CursorTop);
+            flicker((Console.BufferWidth - 26) / 2);
             Console.Clear();
 
             Console.WriteLine("INSERT STROY HERE");
@@ -55,7 +76,7 @@ namespace theSlayer
                 "\nYour choice: ");
             string choice = Console.ReadLine().ToLower();
             Console.Clear();
-            
+
             switch (choice)
             {
                 case "1":
@@ -153,28 +174,28 @@ namespace theSlayer
                 case "1":
                 case "f":
                 case "forwrads":
-                    player.setY(player.move(player.y(), -1, map.getMapY()-1, map.getSymbol(player.y()-1, player.x())));
-                    Console.WriteLine(getRoom().getDesc());
+                    player.setY(player.move(player.y(), -1, map.getMapY() - 1, map.getSymbol(player.y() - 1, player.x())));
+                    type(getRoom().getDesc()+"\n");
                     break;
 
                 case "2":
                 case "l":
                 case "left":
-                    player.setX(player.move(player.x(), -1, map.getMapX()-1, map.getSymbol(player.y(), player.x() - 1)));
+                    player.setX(player.move(player.x(), -1, map.getMapX() - 1, map.getSymbol(player.y(), player.x() - 1)));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "3":
                 case "r":
                 case "right":
-                    player.setX(player.move(player.x(), 1, map.getMapX()-1, map.getSymbol(player.y(), player.x() + 1)));
+                    player.setX(player.move(player.x(), 1, map.getMapX() - 1, map.getSymbol(player.y(), player.x() + 1)));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
                 case "4":
                 case "b":
                 case "backwards":
-                    player.setY(player.move(player.y(), 1, map.getMapY()-1, map.getSymbol(player.y()+1, player.x())));
+                    player.setY(player.move(player.y(), 1, map.getMapY() - 1, map.getSymbol(player.y() + 1, player.x())));
                     Console.WriteLine(getRoom().getDesc());
                     break;
 
@@ -254,7 +275,7 @@ namespace theSlayer
             Environment.Exit(0);
         }
 
-        //Smoll Methods
+        //different Methods
         public Room getRoom()
         {
             Room room = null;
@@ -294,8 +315,6 @@ namespace theSlayer
             }
             return room;
         }
-
-        //rename and reposition
         public void cheat()
         {
             Console.WriteLine("Cheating are we~?");
@@ -305,7 +324,7 @@ namespace theSlayer
                 {
                     if (map.getSymbol(y, x) != "@")
                     {
-                        map.cheatMap(x, y, player.x(),player.y());
+                        map.cheatMap(x, y, player.x(), player.y());
 
                     }
                 }
@@ -313,13 +332,67 @@ namespace theSlayer
             Console.WriteLine("\n");
             Console.ReadLine();
         }
-     
+
         public void unknownCommand()
         {
             Console.WriteLine("Unknown command" +
                 "\nPress 'Enter' to continue");
             Console.ReadLine();
             Console.Clear();
+        }
+
+        public void type(string text)
+        {
+            Console.WriteLine("Press 'Space' to skip\n");
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (Console.KeyAvailable == false || Console.ReadKey().Key != ConsoleKey.Spacebar)
+                {
+                    Thread.Sleep(80);
+                }
+                else
+                {
+                    break;
+                }
+                Console.Write(text[i]);
+            }
+            Console.Clear();
+            Console.WriteLine("Press 'Space' to skip\n");
+            Console.WriteLine(text);
+            flicker(0);
+        }
+
+        public void flicker(int x)
+        {
+
+            int top = Console.CursorTop;
+            int color = 0;
+
+            while (true)
+            {
+                if (Console.KeyAvailable == false)
+                {
+                    if (color == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        color++;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        color = 0;
+                    }
+                    Console.Write("Press 'Enter' to continue                   ");
+                    Console.SetCursorPosition(x, top);
+                    Thread.Sleep(800);
+                }
+                else if (Console.ReadKey().Key == ConsoleKey.Enter)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                }
+
+            }
         }
     }
 }
