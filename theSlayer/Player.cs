@@ -23,10 +23,15 @@ namespace theSlayer
         public void setY(int y)
         { this.currentPossionY = y; }
 
+        public void reset()
+        {
+        this.currentPossionX = 3;
+        this.currentPossionY = 6;
+    }
+
         public int move(int cord, int move, int map, string symbol)
         {
             cord += move;
-            Console.WriteLine(symbol);
             if (cord > map || cord < 0 || symbol == "@")
             {
                     cord -= move;

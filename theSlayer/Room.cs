@@ -25,5 +25,5 @@ namespace theSlayer
     }
 
     public enum RoomType
-    { FLINT, EMPTY, STICK, OIL, DARK, FOUNTAIN, WALL }
+    { FLINT, EMPTY, STICK, OIL, TRAP, FOUNTAIN, WALL }
 }
