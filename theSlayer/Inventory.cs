@@ -8,10 +8,10 @@ namespace theSlayer
 {
     class Inventory
     {
-        private bool oil = true;
+        private bool oil = false;
         private bool flint = false;
-        private bool stick = true;
-        private bool torch = false;
+        private bool stick = false;
+        private bool torch = true;
         private bool exitKey = false;
 
 
@@ -42,11 +42,11 @@ namespace theSlayer
 
         public void reset()
         {
-          this.oil = false;
-          this.flint = false;
-          this.stick = false;
-          this.torch = false;
-          this.exitKey = false;
-    } 
+            this.oil = false;
+            this.flint = false;
+            this.stick = false;
+            this.torch = false;
+            this.exitKey = false;
+        }
     }
 }

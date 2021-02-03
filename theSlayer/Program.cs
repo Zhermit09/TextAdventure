@@ -12,13 +12,40 @@ namespace theSlayer
         private Inventory inventory = new Inventory();
         private Player player = new Player();
 
-        private Room trapRoom = new Room("Trap room", RoomType.TRAP);
-        private Room flintRoom = new Room("Flint room", RoomType.FLINT);
-        private Room oilRoom = new Room("Oil room", RoomType.OIL);
-        private Room fountain = new Room("Fountain", RoomType.FOUNTAIN);
-        private Room stickRoom = new Room("Stick room", RoomType.STICK);
-        private Room emptyRoom = new Room("Emty room", RoomType.EMPTY);
-        private Room wall = new Room("It's a wall", RoomType.WALL);
+        private Room trapRoom = new Room("Thee marches forward into the darkness without a glimpse of fear...\n" +
+            "*SHING*\n" +
+            "???\n" +
+            "Thou cannot determine what was the cause of the noise... \n" +
+            "*TUD*\n" +
+            "Thou hits the ground... Thine body feels chilly... Thee feels tired... thee needs a little rest...\n" +
+            "*SIGH*\n" +
+            "It is now dead silent... Thou has fallen asleep... with thine other half of the body resting beside thee...\n", RoomType.TRAP);
+
+        private Room flintRoom = new Room("Thee looks around the chamber...thou sees a pile of rocks blocking the enormous gate...\n" +
+            "*RUMBLE*\n" +
+            "Rocks most unstable start falling down from the top of the pile...\n" +
+            "*Click* *click*... \n" +
+            "Creating sparks left and right...\n", RoomType.FLINT);
+
+        private Room oilRoom = new Room("Thee looks around the chamber... but cannot seem to find anything special about the room...\n" +
+            "*BUBLE*\n" +
+            "???\n" +
+            "Thou moves over to one of the corners... and there thee finds a puddle of an unknown black substance flowing out of the crack in the chamber...\n", RoomType.OIL);
+
+        private Room fountain = new Room("Thee comes closer to the structure that looks like different chalices were stacked on each other... Thou looks inside... There is nothing in there...  \n" +
+            "*Groan *...\n" +
+            "*Scream*\n" +
+            "Thee looks up looking for the origin of somebody’ agony... but instead gets blinded by the thin light rays coming through the small spaces... Thee waits till thine eyes adapt..." +
+            " and looks up again... thou sees some sort of a complex mechanism... with further inspection thee sees a rope under heavy tension...\n", RoomType.FOUNTAIN);
+
+        private Room stickRoom = new Room("Thee looks around the chamber… and sees a garden of some sort...  " +
+            "a withered one that is... The ground was drained of life... craking beneath thine feet... " +
+            "no sign of grass or vegetation could be seen... only the withered trunk of an ancient tree... " +
+            "menacingly gazing at thee...\n", RoomType.STICK);
+
+        private Room emptyRoom = new Room("Thee looks around the chamber... but cannot seem to find anything special about the room...\n", RoomType.EMPTY);
+
+        private Room wall = new Room("", RoomType.WALL);
 
         private Map map = new Map();
         static void Main(string[] args)
@@ -29,17 +56,10 @@ namespace theSlayer
 
         private void start()
         {
-            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition((Console.BufferWidth - 22) / 2, 13);
-            Console.WriteLine("Press 'Enter' to start");
-            Console.ReadLine();
-            Console.Clear();
+            flicker((Console.BufferWidth - 22) / 2);
             Thread.Sleep(500);
-            mainMeny();
-        }
 
-        public void mainMeny()
-        {
             Console.ForegroundColor = ConsoleColor.Green;
             type("In the former age... when ancient behemoths still roamed the surface off the earth... before the time HEAVENS and HELL " +
                 "got separated from our place of dwelling. In an era of LEGENDARY BEASTS’ warfare for the supreme as an existence, " +
@@ -64,16 +84,20 @@ namespace theSlayer
                 "fearing that they all will be devoured by the slayer, they banded together and by sacrificing their own kin" +
                 "sealed the slayer in the depths of the earth.\n" +
                 "And there thee remained...Or so they say... .\n");
+            mainMeny();
+        }
 
+        public void mainMeny()
+        {
             string[] title = new string[] {
-                "MMMMMMMMMMM   MA     AM    AMMMMMMMV        AMMMMMMMMV  ML          AMMMMMMA  YMMA     AMMY  AMMMMMMMV YMMMMMMMA   ",
-                "Y  TMMMT  Y  MV       VM  AMMMMMMMV        AMMMMMMMMV   MML        AMMMMMMMMA  VMMA   AMNV  AMMMMMMMV   MMMMMMMMA  ",
-                "    MMM      MA       AM  MMV             AMMV          MMM        MMMV  VMMM   VMMA AMMV   MMV         MMV   VMM  ",
+                "MMMMMMMMMMM   MA     AM    AMMMMMMMV        AMMMMMMMMV  A           AMMMMMMA  YMMA     AMMY  AMMMMMMMV YMMMMMMMA   ",
+                "Y  TMMMT  Y  MV       VM  AMMMMMMMV        AMMMMMMMMV   MA         AMMMMMMMMA  VMMA   AMNV  AMMMMMMMV   MMMMMMMMA  ",
+                "    MMM      MA       AM  MMV             AMMV          MMA        MMMV  VMMM   VMMA AMMV   MMV         MMV   VMM  ",
                 "    MMM      MMA     AMM  MMA             VMMA          MMM        MMMA  AMMM    VMMMMMV    MMA         MMA   AMM  ",
                 "    MMM      MMMMMMMMMMM  MMMMMMMA         VMMMMMMMMA   MMM        MMMMMMMMMM     VMMMV     MMMMMMMA    NMMMMMMMV  ",
                 "    MMM      MMMMMMMMMMM  MMMMMMMV          VMMMMMMMMA  MMM        MMMMMMMMMM      MMM      MMMMMMMV    NMMMMMMV   ",
-                "    MMM      MMV     VMM  MMV                      VMMA MMM        MMMV  VMMM      MMM      MMV         NNNY VMA   ",
-                "    MMM      MV       VM  MMA              A       AMMV MMML       MMM    MMM      MMM      MMA         NNN   VMA  ",
+                "    MMM      MMV     VMM  MMV                      VMMA MMV        MMMV  VMMM      MMM      MMV         NNNY VMA   ",
+                "    MMM      MV       VM  MMA              A       AMMV MMA        MMM    MMM      MMM      MMA         NNN   VMA  ",
                 "    MMM      MA       AM  VMMMMMMMA        VMMMMMMMMMV  MMMMMMMMA  VMM    MMV      MMM      VMMMMMMMA   NNN    VMA ",
                 "  AWMMMWA     MV     VM    VMMMMMMMA        VMMMMMMMV   UMMMMMMMMA  VW    WV     AWMMMWA     VMMMMMMMA AWWA    AWWA"
         };
@@ -86,11 +110,11 @@ namespace theSlayer
             {
                 Console.SetCursorPosition((Console.BufferWidth - 116) / 2, i + 4);
                 Console.Write(title[i]);
+                Thread.Sleep(50);
             }
-
-            Console.WriteLine("\n\n\n\n\n");
-            Console.SetCursorPosition((Console.BufferWidth - 26) / 2, Console.CursorTop);
+            Console.SetCursorPosition((Console.BufferWidth - 26) / 2, Console.CursorTop + 6);
             flicker((Console.BufferWidth - 26) / 2);
+
             Console.ForegroundColor = ConsoleColor.Green;
             type("*Rumble*....... *RUMBLE!*...............*RUMBLE!!!!!!!!!!!!!!!!!!!*\n" +
                 "“Ughhh…...”\n" +
@@ -108,22 +132,20 @@ namespace theSlayer
                 "Thee was now flying to the source of the liquid with the remaining of the chains dangling around thine limbs... with the chamber behind thee collapsing into nothingness.\n" +
                 "\n*sip * ...*Sip * ....*SIP * ...*Heavy Breathing~*\n\n" +
                 "After draining the pond, thine eyes were glaring at the rays of light coming from the end of the hallway.\n" +
-                "The only light thee remembers to have ever seen... Thou stands up once again, wobbling this time... Deciding on what to do now...\n");
+                "Thou stands up once again, wobbling this time... Deciding on what to do now...\n");
             choiceList();
         }
 
         public void choiceList()
         {
-            Console.Clear();
-            Console.WriteLine("Thou stands in the " + getRoom().getType() + " room\n" +
-                              "=================================\n");
+            currentRoom();
             Console.Write(
-                "Actions\n" +
+                " Actions\n" +
                 "---------------------------------\n\n" +
-                "1. Inspect\n" +
-                "2. Interact\n" +
-                "3. Craft\n" +
-                "4. Move\n" +
+                " 1. Inspect\n" +
+                " 2. Interact\n" +
+                " 3. Craft\n" +
+                " 4. Move\n" +
                 "\nYour choice: ");
             string choice = Console.ReadLine().ToLower().Trim();
             Console.Clear();
@@ -140,28 +162,26 @@ namespace theSlayer
                 case "2":
                 case "int":
                 case "interact":
-                    
-                    if (inventory.hasTorch() && getRoom().getType() == RoomType.FOUNTAIN && !inventory.canLeave())
-                    {
-                        burnTheRope();
-                    }
 
-                    else if (inventory.canLeave() && getRoom().getType() == RoomType.FLINT)
+                       if (inventory.canLeave() && getRoom().getType() == RoomType.FLINT)
                     {
                         door();
                     }
-                    else if (getRoom().getType() == RoomType.FLINT|| getRoom().getType() == RoomType.OIL|| getRoom().getType() == RoomType.STICK)
+                    else if (getRoom().getType() == RoomType.FLINT || getRoom().getType() == RoomType.OIL || getRoom().getType() == RoomType.STICK)
                     {
                         pickUp();
                     }
-
+                    else if (inventory.hasTorch() && getRoom().getType() == RoomType.FOUNTAIN && !inventory.canLeave())
+                    {
+                        burnTheRope();
+                    }
+                 
                     else
                     {
                         Console.WriteLine(
-                            "There is nothing else you can do as of right now" +
-                            "\nPress 'Enter' to continue");
-                        Console.ReadLine();
-                        
+                            "There is nothing else you can do as of right now\n");
+                        flicker(0);
+
                     }
                     choiceList();
                     break;
@@ -169,7 +189,6 @@ namespace theSlayer
                 case "c":
                 case "craft":
                     craft();
-                    Console.ReadLine();
                     choiceList();
                     break;
                 case "4":
@@ -188,11 +207,10 @@ namespace theSlayer
                     break;
             }
         }
-        //fix
         public void pickUp()
         {
             Console.Write(
-                "Do you want to pick up the item in the room?" +
+                "Do you want to pick up the material in the room?" +
                 "(Yes/No)" +
                 "\n\nAnswer: ");
             string answer = Console.ReadLine().ToLower().Trim();
@@ -216,32 +234,20 @@ namespace theSlayer
                     break;
             }
         }
-
-        public void craft()
-        {
-            Console.WriteLine("                       RECIPE:                         \n" +
-                              " _________     _________     _________       _________ \n" +
-                              "|  Stick  |   |   Oil   |   |  Flint  |     |  Torch  |\n" +
-                              "|    1    | + |    1    | + |    1    | --> |    1    |\n" +
-                              "|_________|   |_________|   |_________|     |_________|");
-            if (inventory.hasOil() && inventory.hasFlint() && inventory.hasStick() && inventory.hasTorch() != true)
-            {
-                inventory.craftTorch();
-                Console.WriteLine("\nThou have successfully  made a torch!!!");
-            }
-            else
-            { Console.WriteLine("\nThere is nothing new thou can make at this moment"); }
-        }
-
         public void burnTheRope()
         {
             inventory.openExit();
-            Console.WriteLine(
-                "Look up and burn the rope" +
-                "\nPress 'Enter' to continue");
-            Console.ReadLine();
+            type("Thou looks again at the complex mechanism... thou sees the cable under tension… thou looks at thy torch... " +
+                "thou decide to give it a try... thou starts to climb the multilevelled fountain and reached the rope...  " +
+                "thou moved thy torch closer to the cable… it burst into flames… exploding under its own tension...  " +
+                "Gears started moving again...\n" +
+                "*Groan*... *Scream*... *Screech!!!*...\n" +
+                "And then dead silence..." +
+                "Foutain started working again… bringing the bloodred liquid and filling its chalices… " +
+                "thou weak and exhausted climbs down and starts consuming the substance... " +
+                "thine body begins healing and recovering at a tremendous speed... and with recovery came a scorching feeling... " +
+                "a feeling so familiar yet so new... after draining the chalices thou stands up more energetic than ever...\n");
         }
-
         public void door()
         {
             Console.Write(
@@ -256,6 +262,16 @@ namespace theSlayer
                 case "yes":
                 case "ye":
                 case "y":
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    type("*Inhale* \n" +
+                        "Thou pulls back one of thy legs... \n" +
+                        "*Boom*\n" +
+                        "Thou is out ... or so thou thought... thou finds thy self in an open room... " +
+                        "with a watchdog... a giant one that is ... hundreds of times bigger than thee..." +
+                        " yet thou are not the one to cower in fear but the beast... finally after a while the flustered beast " +
+                        "comes to its senses and charges at thee… however watchdogs courage was futile… in single movement " +
+                        "thou smashed the beast against the opposite wall… the hound let out a final howl letting them know..." +
+                        " the age of extinction has begun!\n");
                     exit();
                     break;
 
@@ -271,12 +287,32 @@ namespace theSlayer
                     break;
             }
         }
+        public void craft()
+        {
+            Console.WriteLine("                       RECIPE:                         \n" +
+                              " _________     _________     _________       _________ \n" +
+                              "|  Stick  |   |   Oil   |   |  Flint  |     |  Torch  |\n" +
+                              "|    1    | + |    1    | + |    1    | --> |    1    |\n" +
+                              "|_________|   |_________|   |_________|     |_________|");
+            if (inventory.hasOil() && inventory.hasFlint() && inventory.hasStick() && inventory.hasTorch() != true)
+            {
+                inventory.craftTorch();
+                Console.Clear();
+                type("\nThee observers thine acquired materials… thinking of making something to help thee escape..." +
+                    " however, thou can only make a fire on a stick so thou decide to do just so...  make a torch..." +
+                    " thine torch beams with blue hot light brightening the space around thee... \n" +
+                    "Maybe thou can make use of it?\n");
+            }
+            else
+            {
+                Console.WriteLine("\nThere is nothing new thou can make at this moment \n");
+                flicker(0);
+            }
+        }
 
         public void walkWhere()
         {
-            Console.Clear();
-            Console.WriteLine("Thou stands in the " + getRoom().getType() + " room\n" +
-                              "=================================\n");
+            currentRoom();
             Console.Write(
             "Try Moving: \n" +
             "---------------------------------\n\n" +
@@ -289,7 +325,7 @@ namespace theSlayer
             string yourChoice = Console.ReadLine().ToLower().Trim();
             Console.Clear();
             movementSwitch(yourChoice);
-          
+
         }
         public void movementSwitch(string choice)
         {
@@ -332,76 +368,49 @@ namespace theSlayer
             }
             if (getRoom().getType() == RoomType.TRAP)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Clear();
                 death();
             }
-            Console.WriteLine("You moved");
-            Console.ReadLine();
             walkWhere();
         }
-
         public void itemCollect()
         {
             switch (getRoom().getType())
             {
                 case RoomType.OIL:
-                    Console.WriteLine("oil");
+                    type("Thee kneeled by the puddle... puzzled... how would thee be able to store the black liquid... " +
+                        "Thou looked down at thine ravaged robes...  \n" +
+                        "*POP*\n" +
+                        "a bubble popped in the liquid leaving a stain on the already" +
+                        " demolished clothes… and suddenly, it came to thou...  the answer...  thee took the bottom of thine clothing and " +
+                        "with all remaining might tore it apart... then thee took the ripped off the strip... drenched it in the substance... " +
+                        "and after thee bandaged the strip around thine arm.\n");
                     inventory.collectOil();
                     break;
 
                 case RoomType.FLINT:
-                    Console.WriteLine("flint");
+                    type("Thee approached the pile of rocks... kneeled down...  " +
+                        "picked up two rocks and slammed them against each other... yet no sparks emerged... " +
+                        "thee began examining the rocks once again until thee saw some peculiar stones... " +
+                        "they gave a different impression... thee slammed them against each other... (embers sparked...)\n");
                     inventory.collectFlint();
                     break;
 
                 case RoomType.STICK:
-                    Console.WriteLine("stick");
+                    type("Thee stood in the centre of the ‘garden’ by the withered tree... " +
+                         "thee grasped one of the branches believing that it would easily crack under thine pressure..." +
+                         " it did not... the mightly tree was long dead yet such strength was embedded in the wood..." +
+                         " thee had to hang himself on the tiny branch and only then... did it give in... \n");
                     inventory.collectStick();
                     break;
 
                 default:
-                    Console.WriteLine("Other room");
+                    Console.WriteLine("Nothing here");
                     break;
             }
-
-            //Move to craft option
-
-
-            //Mark
-            Console.ReadLine();
             choiceList();
         }
-
-        public void exit()
-        {
-            DateTime now = DateTime.Now;
-            int second = now.Second;
-            int pastSecond = second;
-            int timer = 6;
-            string message = "Application closing in: ";
-            int lenght = message.Length;
-
-     /*       Console.WriteLine("\nYou have succesfully escaped the chamber..." +
-                "\nFor now...." +
-                "\n\nPress 'Enter' to exit the application");
-            Console.ReadLine();*/
-
-            Console.Write(message);
-            while (timer >= 0)
-            {
-                now = DateTime.Now;
-                second = now.Second;
-                if (second > pastSecond)
-                {
-                    timer--;
-                    Console.Write(timer + " ");
-                    Console.SetCursorPosition(lenght, Console.CursorTop);
-                }
-                pastSecond = second;
-            }
-            Environment.Exit(0);
-        }
-
-        //different Methods
         public Room getRoom()
         {
             Room room = null;
@@ -443,7 +452,6 @@ namespace theSlayer
         }
         public void cheat()
         {
-            
             for (int y = 0; y < map.getMapY(); y++)
             {
                 for (int x = 0; x < map.getMapX(); x++)
@@ -456,27 +464,35 @@ namespace theSlayer
                 }
             }
             Console.WriteLine("\n\nCheating are we~?");
-            Console.WriteLine("\n");
             Console.ReadLine();
         }
 
         public void unknownCommand()
         {
-            Console.WriteLine("Unknown command" +
-                "\nPress 'Enter' to continue");
-            Console.ReadLine();
-            Console.Clear();
+            Console.WriteLine("Unknown command\n");
+            flicker(0);
         }
 
+        public void currentRoom()
+        {
+            Console.Clear();
+            Console.Write("Thou stands in the ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write(getRoom().getType());
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" room\n" +
+                              "=================================\n");
+        }
         public void death()
         {
+            type(getRoom().getDesc());
             inventory.reset();
             player.reset();
-            Console.WriteLine("U ded");
-            flicker(0);
-            Console.Clear();
+
+
+
             Console.Write(
-                "Does thee want to try again?" +
+                "Does thou want to reawaken again?" +
                 "(Yes/No)" +
                 "\n\nAnswer: ");
             string answer = Console.ReadLine().ToLower().Trim();
@@ -487,7 +503,7 @@ namespace theSlayer
                 case "yes":
                 case "ye":
                 case "y":
-                    start();
+                    mainMeny();
                     break;
 
                 case "no":
@@ -503,7 +519,6 @@ namespace theSlayer
             }
 
         }
-
         public void type(string text)
         {
             Console.WriteLine("Press 'Space' to skip\n");
@@ -559,5 +574,31 @@ namespace theSlayer
 
             }
         }
+        public void exit()
+        {
+            DateTime now = DateTime.Now;
+            int second = now.Second;
+            int pastSecond = second;
+            int timer = 6;
+            string message = "Application closing in: ";
+            int lenght = message.Length;
+
+            Console.Write(message);
+            while (timer >= 0)
+            {
+                now = DateTime.Now;
+                second = now.Second;
+                if (second > pastSecond)
+                {
+                    timer--;
+                    Console.Write(timer + " ");
+                    Console.SetCursorPosition(lenght, Console.CursorTop);
+                }
+                pastSecond = second;
+            }
+            Environment.Exit(0);
+        }
+
+
     }
 }

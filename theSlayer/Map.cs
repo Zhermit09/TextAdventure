@@ -41,7 +41,14 @@ namespace theSlayer
         }
         public string getSymbol(int y, int x)
         {
-            return mapLayout[y, x];
+            try
+            {
+                return mapLayout[y, x];
+            }
+            catch
+            {
+                return "@";
+            }
         }
 
         public void cheatMap(int x, int y, int px, int py)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace theSlayer
@@ -36,10 +37,17 @@ namespace theSlayer
             {
                     cord -= move;
                     Console.WriteLine(
-                        "That is a wall" +
-                        "\nPress 'Enter' to continue");
+                        "Thee tries thine hardest to push back the wall yet it will not budge... no matter what..." +
+                        "\n\nPress 'Enter' to continue");
                     Console.ReadLine();
                 
+                
+            }
+            else
+            {
+                Console.SetCursorPosition((Console.BufferWidth - 8) / 2, 13);
+                Console.WriteLine("You moved");
+                Thread.Sleep(800);
             }
             return cord;
         }
