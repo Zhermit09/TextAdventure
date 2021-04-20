@@ -26,25 +26,28 @@ namespace theSlayer
 
         public void reset()
         {
-        this.currentPossionX = 3;
-        this.currentPossionY = 6;
-    }
+            this.currentPossionX = 3;
+            this.currentPossionY = 6;
+        }
 
-        public int move(int cord, int move, int map, string symbol)
+        public int move(int cord, int move,  string symbol)
         {
+            //Ändrar koordinater av spelaren 
             cord += move;
-            if (cord > map || cord < 0 || symbol == "@")
+            //Om det är en vägg så tas tillbaka ändringen
+            if (symbol == "@")
             {
-                    cord -= move;
-                    Console.WriteLine(
-                        "Thee tries thine hardest to push back the wall yet it will not budge... no matter what..." +
-                        "\n\nPress 'Enter' to continue");
-                    Console.ReadLine();
-                
-                
+                cord -= move;
+                Console.WriteLine(
+                    "Thee tries thine hardest to push back the wall yet it will not budge... no matter what..." +
+                    "\n\nPress 'Enter' to continue");
+                Console.ReadLine();
+
+
             }
             else
             {
+                //Notis att koordinater var ändrade
                 Console.SetCursorPosition((Console.BufferWidth - 8) / 2, 13);
                 Console.WriteLine("You moved");
                 Thread.Sleep(800);

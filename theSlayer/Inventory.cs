@@ -11,7 +11,7 @@ namespace theSlayer
         private bool oil = false;
         private bool flint = false;
         private bool stick = false;
-        private bool torch = true;
+        private bool torch = false;
         private bool exitKey = false;
 
 

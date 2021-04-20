@@ -49,13 +49,14 @@ namespace theSlayer
 
         private Map map = new Map();
         static void Main(string[] args)
-        {
+        {// Skapar en ny instans av klassen Program och allokerar minne för instancer av mina klasser
             Program program = new Program();
             program.start();
         }
 
         private void start()
         {
+            //Centrerar texten
             Console.SetCursorPosition((Console.BufferWidth - 22) / 2, 13);
             flicker((Console.BufferWidth - 22) / 2);
             Thread.Sleep(500);
@@ -102,16 +103,20 @@ namespace theSlayer
                 "  AWMMMWA     MV     VM    VMMMMMMMA        VMMMMMMMV   UMMMMMMMMA  VW    WV     AWMMMWA     VMMMMMMMA AWWA    AWWA"
         };
             Console.ForegroundColor = ConsoleColor.DarkRed;
+
+            //Kollar om titeln får plats i konsolen, om nej ändrar på bredden an buffern
             if (Console.BufferWidth < 120)
             {
                 Console.BufferWidth = 120;
             }
+            //Skriver ut titeln i mitten av buffern
             for (int i = 0; i < 10; i++)
             {
                 Console.SetCursorPosition((Console.BufferWidth - 116) / 2, i + 4);
                 Console.Write(title[i]);
                 Thread.Sleep(50);
             }
+            //Centrerar texten och ändrar höjd
             Console.SetCursorPosition((Console.BufferWidth - 26) / 2, Console.CursorTop + 6);
             flicker((Console.BufferWidth - 26) / 2);
 
@@ -139,6 +144,8 @@ namespace theSlayer
         public void choiceList()
         {
             currentRoom();
+
+            //Lista av val möjligheter
             Console.Write(
                 " Actions\n" +
                 "---------------------------------\n\n" +
@@ -155,6 +162,7 @@ namespace theSlayer
                 case "1":
                 case "ins":
                 case "inspect":
+                    //Kollar vilket rum det är och tar fram beskrivningen 
                     type(getRoom().getDesc() + "\n");
                     choiceList();
                     break;
@@ -162,26 +170,29 @@ namespace theSlayer
                 case "2":
                 case "int":
                 case "interact":
-
-                       if (inventory.canLeave() && getRoom().getType() == RoomType.FLINT)
+                    //Om man har öppnat utgången och befinner sig i rätt rum så kan man välja att avsluta spelet
+                    if (inventory.canLeave() && getRoom().getType() == RoomType.FLINT)
                     {
                         door();
                     }
+
+                    //Om det är ett rum där det finns ett nyckel föremål så kan man ta upp den
                     else if (getRoom().getType() == RoomType.FLINT || getRoom().getType() == RoomType.OIL || getRoom().getType() == RoomType.STICK)
                     {
                         pickUp();
                     }
+
+                    //Om man har nyckeln och befinner sig i rätt rum och inte har redan öppnat utgången så kan man öppna utgången 
                     else if (inventory.hasTorch() && getRoom().getType() == RoomType.FOUNTAIN && !inventory.canLeave())
                     {
                         burnTheRope();
                     }
-                 
+
                     else
                     {
                         Console.WriteLine(
                             "There is nothing else you can do as of right now\n");
                         flicker(0);
-
                     }
                     choiceList();
                     break;
@@ -196,6 +207,7 @@ namespace theSlayer
                 case "move":
                     walkWhere();
                     break;
+                //"Fusk" funktion som kan visa labyrintens layout
                 case "/map":
                     cheat();
                     choiceList();
@@ -209,6 +221,7 @@ namespace theSlayer
         }
         public void pickUp()
         {
+            //Frågar 
             Console.Write(
                 "Do you want to pick up the material in the room?" +
                 "(Yes/No)" +
@@ -236,6 +249,7 @@ namespace theSlayer
         }
         public void burnTheRope()
         {
+            //Öppnar uttgången
             inventory.openExit();
             type("Thou looks again at the complex mechanism... thou sees the cable under tension… thou looks at thy torch... " +
                 "thou decide to give it a try... thou starts to climb the multilevelled fountain and reached the rope...  " +
@@ -289,13 +303,16 @@ namespace theSlayer
         }
         public void craft()
         {
+            //Ledtråd
             Console.WriteLine("                       RECIPE:                         \n" +
                               " _________     _________     _________       _________ \n" +
                               "|  Stick  |   |   Oil   |   |  Flint  |     |  Torch  |\n" +
                               "|    1    | + |    1    | + |    1    | --> |    1    |\n" +
                               "|_________|   |_________|   |_________|     |_________|");
+            //Om man har alla föremål och har inte redan skapat facklan så kan man göra det
             if (inventory.hasOil() && inventory.hasFlint() && inventory.hasStick() && inventory.hasTorch() != true)
             {
+                //"Skapar" facklan
                 inventory.craftTorch();
                 Console.Clear();
                 type("\nThee observers thine acquired materials… thinking of making something to help thee escape..." +
@@ -313,6 +330,8 @@ namespace theSlayer
         public void walkWhere()
         {
             currentRoom();
+
+            //Vart man kan försöka gå
             Console.Write(
             "Try Moving: \n" +
             "---------------------------------\n\n" +
@@ -334,25 +353,29 @@ namespace theSlayer
                 case "1":
                 case "u":
                 case "up":
-                    player.setY(player.move(player.y(), -1, map.getMapY() - 1, map.getSymbol(player.y() - 1, player.x())));
+                    //Kollar efter väggar i funktionen "move" och ändrar kordinater i funktionen "player.set"
+                    player.setY(player.move(player.y()/*Spelarens y koordinat*/, -1/*Hur mycket man ska flytta med*/,map.getSymbol(player.y() - 1, player.x())))/*Tar fram tecken ur kartan dit seplaren vill gå*/;
                     break;
 
                 case "2":
                 case "l":
                 case "left":
-                    player.setX(player.move(player.x(), -1, map.getMapX() - 1, map.getSymbol(player.y(), player.x() - 1)));
+                    //Samma princip som ovanstående 
+                    player.setX(player.move(player.x(), -1, map.getSymbol(player.y(), player.x() - 1)));
                     break;
 
                 case "3":
                 case "r":
                 case "right":
-                    player.setX(player.move(player.x(), 1, map.getMapX() - 1, map.getSymbol(player.y(), player.x() + 1)));
+                    //Samma princip som ovanstående
+                    player.setX(player.move(player.x(), 1, map.getSymbol(player.y(), player.x() + 1)));
                     break;
 
                 case "4":
                 case "d":
                 case "down":
-                    player.setY(player.move(player.y(), 1, map.getMapY() - 1, map.getSymbol(player.y() + 1, player.x())));
+                    //Samma princip som ovanstående
+                    player.setY(player.move(player.y(), 1, map.getSymbol(player.y() + 1, player.x())));
                     break;
 
                 case "5":
@@ -366,6 +389,8 @@ namespace theSlayer
                     walkWhere();
                     break;
             }
+
+            //Kollar om det är en "game over" rum
             if (getRoom().getType() == RoomType.TRAP)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -376,6 +401,7 @@ namespace theSlayer
         }
         public void itemCollect()
         {
+            //Tar fram vilken typ av rum det är, skriver ut texten och kallar på collect funktionen som finns i klassen
             switch (getRoom().getType())
             {
                 case RoomType.OIL:
@@ -413,6 +439,7 @@ namespace theSlayer
         }
         public Room getRoom()
         {
+            //Här tas fram tecken från kartan och retureras som Rooms Enum
             Room room = null;
             switch (map.getSymbol(player.y(), player.x()))
             {
@@ -452,10 +479,12 @@ namespace theSlayer
         }
         public void cheat()
         {
+            //Ritar ut rum
             for (int y = 0; y < map.getMapY(); y++)
             {
                 for (int x = 0; x < map.getMapX(); x++)
                 {
+                    //Om det är en vägg så hoppar man över
                     if (map.getSymbol(y, x) != "@")
                     {
                         map.cheatMap(x, y, player.x(), player.y());
@@ -468,13 +497,16 @@ namespace theSlayer
         }
 
         public void unknownCommand()
-        {
-            Console.WriteLine("Unknown command\n");
-            flicker(0);
+        {   //Centerar text
+            Console.SetCursorPosition((Console.BufferWidth - 15) / 2, 12);
+            Console.WriteLine("UNKNOWN COMMAND\n");
+            //Centerar texten som ska blinka
+            flicker(((Console.BufferWidth - 26) / 2));
         }
 
         public void currentRoom()
         {
+            //Visar i vilken typ av rum det är
             Console.Clear();
             Console.Write("Thou stands in the ");
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -485,12 +517,14 @@ namespace theSlayer
         }
         public void death()
         {
+            //Tar fram beskrivningen
             type(getRoom().getDesc());
+            //Återställer allt
             inventory.reset();
             player.reset();
 
 
-
+            //Starta om eller avsluta programmet
             Console.Write(
                 "Does thou want to reawaken again?" +
                 "(Yes/No)" +
@@ -524,8 +558,12 @@ namespace theSlayer
             Console.WriteLine("Press 'Space' to skip\n");
             for (int i = 0; i < text.Length; i++)
             {
+                //Skriver ut string bokstav för bokstav så länge den nedtryckta tangenten inte är mellanslag
+
                 if (Console.KeyAvailable == false || Console.ReadKey().Key != ConsoleKey.Spacebar)
                 {
+                    //Väntar
+
                     Thread.Sleep(80);
                 }
                 else
@@ -534,6 +572,8 @@ namespace theSlayer
                 }
                 Console.Write(text[i]);
             }
+            //Tar bort allt och skriver ut string igen
+
             Console.Clear();
             Console.WriteLine(text);
             flicker(0);
@@ -542,14 +582,17 @@ namespace theSlayer
 
         public void flicker(int x)
         {
+            //Får positionen av markören för att senare kunna skriva om på samma plats
 
             int top = Console.CursorTop;
             int color = 0;
 
+            Console.SetCursorPosition(x, top);
             while (true)
             {
                 if (Console.KeyAvailable == false)
-                {
+                {//Texten blinkar
+
                     if (color == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -566,16 +609,18 @@ namespace theSlayer
                     Thread.Sleep(800);
                 }
                 else if (Console.ReadKey().Key == ConsoleKey.Enter)
-                {
+                {   //Färgen återställs och allt suddas bort
+
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Clear();
                     break;
                 }
-
             }
         }
         public void exit()
         {
+            //Timer gjordes innan jag lärde mig om Thread.Sleep()
+
             DateTime now = DateTime.Now;
             int second = now.Second;
             int pastSecond = second;
@@ -586,12 +631,15 @@ namespace theSlayer
             Console.Write(message);
             while (timer >= 0)
             {
+                //2 variabler som jämförs med varandra hela tiden, om nya sekund är större än den gamla så går timer ner
+                //(Det blir en exktra sekund att vänta när det blir en ny minut då sekunderna blir till 00 då)
                 now = DateTime.Now;
                 second = now.Second;
                 if (second > pastSecond)
                 {
                     timer--;
                     Console.Write(timer + " ");
+                    //Återställer markören för att skriva om timern
                     Console.SetCursorPosition(lenght, Console.CursorTop);
                 }
                 pastSecond = second;

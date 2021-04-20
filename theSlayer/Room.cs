@@ -18,10 +18,14 @@ namespace theSlayer
         }
 
         public string getDesc()
-        { return description; }
+        {
+            return description;
+        }
 
         public RoomType getType()
-        { return type; }
+        {
+            return type;
+        }
     }
 
     public enum RoomType
